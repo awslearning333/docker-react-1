@@ -6,7 +6,7 @@ phases:
       - npm install
   build:
     commands:
-      - npm test
+      - docker build -t awslearning333/docker-react-1 -f Dockerfile.dev .
 artifacts:
   files:
     - '**/*'

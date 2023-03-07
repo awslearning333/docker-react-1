@@ -1,5 +1,4 @@
 version: 0.2
-RUN useradd codebuild-user
 build:
     commands:
       - docker-compose up --build

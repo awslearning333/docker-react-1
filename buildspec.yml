@@ -1,7 +1,7 @@
 version: 0.2
 
 phases:
-  pre_builds:
+  pre_build:
     commands:
       - echo Logging in to Amazon ECR...
       - $(aws ecr get-login --no-include-email --region $AWS_DEFAULT_REGION)
@@ -17,3 +17,6 @@ phases:
       - echo Build completed on `date`
       - echo Pushing the Docker image..
       - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG
+artifacts:
+  files:
+    - '**/*'

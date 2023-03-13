@@ -18,8 +18,6 @@ phases:
       - echo Pushing the Docker image..
       - docker push 274892948770.dkr.ecr.us-east-1.amazonaws.com/newrepo:latest
       - echo Writing image defination file...
-      - printf '{"ImageURI":"274892948770.dkr.ecr.us-east-1.amazonaws.com/newrepo:latest"}' > imagedefinitions.json
+      - printf '{"ImageURI":"image_URI"}' > imagedefinitions.json
 artifacts:
-  files:
-    - '**/*'
-    
+  files: imagedefinitions.json

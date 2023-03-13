@@ -20,5 +20,6 @@ phases:
       - echo Writing image defination file...
       - printf '{"ImageURI":"274892948770.dkr.ecr.us-east-1.amazonaws.com/newrepo:latest"}' > imagedefinitions.json
 artifacts:
-  files: imagedefinations.json
+  files:
+    - '**/*'
     

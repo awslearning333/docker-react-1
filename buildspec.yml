@@ -1,6 +1,7 @@
 version: 0.2
-build:
+phases: 
+  build:
     commands:
       - docker-compose up
-  files:
-    - '**/*'
+files:
+  - '**/*'

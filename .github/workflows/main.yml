@@ -44,7 +44,7 @@ jobs:
     - name: Update Deployment YAML
       run: |
         echo "Using TAG: $TAG1"
-        sed -i "s/TAG/${935112862275.dkr.ecr.us-east-1.amazonaws.com/testing:$TAG}/g" deployment.yml
+        sed -i "s|TAG|$(echo $TAG1 | sed -e 's/[\/&]/\\&/g')|g" deployment.yml
 
     - name: Deploy to EKS
       run: |

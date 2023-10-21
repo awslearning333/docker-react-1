@@ -27,7 +27,7 @@ jobs:
     - name: Build and Push MainService
       run: |
         echo Build started on $(date)
-        TAG="image_$(date +'%Y%m%d_%H%M%S' | tr -d ':')"
+        TAG="react_$(date +'%Y%m%d_%H%M%S')"
         echo Building the Docker image with tag $TAG...
         docker build -t reactjs:$TAG .
         docker tag reactjs:$TAG 935112862275.dkr.ecr.us-east-1.amazonaws.com/testing:$TAG
@@ -37,5 +37,6 @@ jobs:
     
     - name: Deploy to EKS
       run: |
-        kubectl apply -f deployment.yml --force
+        sed -i "s|image: .*|image: 935112862275.dkr.ecr.us-east-1.amazonaws.com/testing:$TAG|g" deployment.yml
+        kubectl apply -f deployment.yml
         kubectl apply -f service.yml

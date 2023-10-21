@@ -27,7 +27,7 @@ jobs:
     - name: Build and Push MainService
       run: |
         echo Build started on $(date)
-        TAG="image_$(date +'%Y%m%d_%H%M%S')"
+        TAG="image_$(date +'%Y%m%d_%H%M%S' | tr -d ':')"
         echo Building the Docker image with tag $TAG...
         docker build -t reactjs:$TAG .
         docker tag reactjs:$TAG 935112862275.dkr.ecr.us-east-1.amazonaws.com/testing:$TAG

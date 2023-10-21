@@ -38,8 +38,8 @@ jobs:
     
     - name: Update Deployment YAML
       run: |
-        TAG="react_$(date +'%Y%m%d_%H%M%S')"
-        sed -i "s|$TAG|935112862275.dkr.ecr.us-east-1.amazonaws.com/testing:$TAG|g" deployment.yml
+        echo $TAG
+        sed -i "s|TAG|935112862275.dkr.ecr.us-east-1.amazonaws.com/testing:$TAG|g" deployment.yml
         cat deployment.yml
 
     - name: Deploy to EKS

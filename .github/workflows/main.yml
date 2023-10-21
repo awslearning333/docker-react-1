@@ -36,18 +36,10 @@ jobs:
     - name: Update kube config
       run: aws eks update-kubeconfig --name test
     
-    - name: Debugging Info
-      run: |
-        echo "TAG: $TAG"
-        echo "Current Kubeconfig:"
-        cat $HOME/.kube/config
-      env:
-        TAG: $TAG
-    
     - name: Update Deployment YAML
       run: |
         TAG="react_$(date +'%Y%m%d_%H%M%S')"
-        sed -i 's|TAG/935112862275.dkr.ecr.us-east-1.amazonaws.com/testing:$TAG/g' deployment.yml
+        sed -i "s|$TAG|935112862275.dkr.ecr.us-east-1.amazonaws.com/testing:$TAG|g" deployment.yml
         cat deployment.yml
 
     - name: Deploy to EKS

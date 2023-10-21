@@ -41,7 +41,7 @@ jobs:
 
         NEW_TAG="935112862275.dkr.ecr.us-east-1.amazonaws.com/testing:$TAG"
         echo $NEW_TAG
-        sed -i "s/TAG/$NEW_TAG/g" deployment.yml
+        sed -i "s|TAG|$NEW_TAG|g" deployment.yml
         echo $NEW_TAG
     
     - name: Deploy to EKS

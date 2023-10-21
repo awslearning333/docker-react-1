@@ -27,7 +27,7 @@ jobs:
     - name: Build and Push
       run: |
         echo Build started on $(date)
-        TAG="react_$(date +'%Y%m%d_%H%M%S')"
+        TAG=$(date +'%Y%m%d_%H%M%S')
         echo Building the Docker image with tag $TAG...
         docker build -t reactjs:$TAG .
         docker tag reactjs:$TAG 935112862275.dkr.ecr.us-east-1.amazonaws.com/testing:$TAG
@@ -38,13 +38,13 @@ jobs:
     
     - name: Set TAG Variable
       run: |
-        TAG="935112862275.dkr.ecr.us-east-1.amazonaws.com/testing:$TAG"
-        echo "TAG is set to: $TAG"
+        TAG1="935112862275.dkr.ecr.us-east-1.amazonaws.com/testing:$TAG"
+        echo "TAG is set to: $TAG1"
 
     - name: Update Deployment YAML
       run: |
-        echo "Using TAG: $TAG"
-        sed -i "s/TAG/$TAG/g" deployment.yml
+        echo "Using TAG: $TAG1"
+        sed -i "s/TAG/$TAG1/g" deployment.yml
 
     - name: Deploy to EKS
       run: |

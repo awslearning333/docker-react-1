@@ -38,8 +38,9 @@ jobs:
     
     - name: Update Deployment YAML
       run: |
+        TAG="935112862275.dkr.ecr.us-east-1.amazonaws.com/testing:$TAG"
         echo $TAG
-        sed -i "s/TAG/935112862275.dkr.ecr.us-east-1.amazonaws.com/testing:$TAG/g" deployment.yml
+        sed -i "s/TAG/$TAG/g" deployment.yml
         echo $TAG
     - name: Deploy to EKS
       run: |

@@ -35,16 +35,10 @@ jobs:
 
     - name: Update kube config
       run: aws eks update-kubeconfig --name test
-    
-    - name: Set TAG Variable
-      run: |
-        TAG1="935112862275.dkr.ecr.us-east-1.amazonaws.com/testing:$TAG"
-        echo "TAG is set to: $TAG1"
-
-    - name: Update Deployment YAML
-      run: |
-        echo "Using TAG: $TAG1"
-        sed -i "s|TAG|$(echo $TAG1 | sed -e 's/[\/&]/\\&/g')|g" deployment.yml
+        input="935112862275.dkr.ecr.us-east-1.amazonaws.com/testing:$TAG"
+        Image=$(echo "$input" | grep -oE ':[^:]+$' | sed 's/://')
+        sed -i 's/TAG/Image/g' deployment.yml
+        echo "Image is:$Image"
 
     - name: Deploy to EKS
       run: |

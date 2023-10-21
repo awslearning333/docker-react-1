@@ -32,3 +32,10 @@ jobs:
         docker build -t reactjs:$TAG .
         docker tag reactjs:$TAG 935112862275.dkr.ecr.us-east-1.amazonaws.com/testing:$TAG
         docker push 935112862275.dkr.ecr.us-east-1.amazonaws.com/testing:$TAG
+    - name: Update kube config
+      run: aws eks update-kubeconfig --name test
+    
+    - name: Deploy to EKS
+      run: |
+        kubectl apply -f deployment.yml
+        kubectl apply -f service.yml

@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: reactjs
+  labels:
+    app: reactjs
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: reactjs
+  template:
+    metadata:
+      labels:
+        app: reactjs
+    spec:
+      containers:
+        - name: devopshint
+          image: 935112862275.dkr.ecr.us-east-1.amazonaws.com/testing:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3000

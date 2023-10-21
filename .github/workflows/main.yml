@@ -37,7 +37,7 @@ jobs:
       run: aws eks update-kubeconfig --name test
         input="935112862275.dkr.ecr.us-east-1.amazonaws.com/testing:$TAG"
         Image=$(echo "$input" | grep -oE ':[^:]+$' | sed 's/://')
-        sed -i 's/TAG/Image/g' deployment.yml
+        sed -i 's/TAG/$Image/g' deployment.yml
         echo "Image is:$Image"
 
     - name: Deploy to EKS

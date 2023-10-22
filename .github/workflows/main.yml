@@ -32,6 +32,8 @@ jobs:
         docker build -t reactjs:$TAG .
         docker tag reactjs:$TAG 935112862275.dkr.ecr.us-east-2.amazonaws.com/testing:$TAG
         docker push 935112862275.dkr.ecr.us-east-2.amazonaws.com/testing:$TAG
+        Image=935112862275.dkr.ecr.us-east-2.amazonaws.com/testing:$TAG
+        echo "image with tag: $Image"
 
     - name: Update kube config
       run: |

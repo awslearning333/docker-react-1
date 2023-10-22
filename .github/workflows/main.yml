@@ -37,7 +37,6 @@ jobs:
     - name: Update kube config
       run: |
         aws eks update-kubeconfig --name test1
-        sed -i "s|TAG|${{ env.TAG }}|g" deployment.yml
         echo "$TAG"
         cat deployment.yml
     - name: Deploy to EKS

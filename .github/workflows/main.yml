@@ -38,16 +38,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Install kubectl
-      run: |
-        curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
-        chmod +x kubectl
-        sudo mv kubectl /usr/local/bin/
     - name: Update kube config
       run: |
-        set -x  # Enable debugging
-        aws eks update-kubeconfig --name test1
-        set +x  # disable debugging
+        aws eks update-kubeconfig --name test1 > update_kubeconfig_output.txt 2>&1
+        cat update_kubeconfig_output.txt
         sed -i "s|TAG|${{ env.TAG }}|g" deployment.yml
         cat deployment.yml
 

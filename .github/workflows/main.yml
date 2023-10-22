@@ -38,10 +38,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: AKIA5TOIR5JB6IZATMG5
+        aws-secret-access-key: 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
+        aws-region: us-east-2
     - name: Update kube config
       run: |
-        aws eks update-kubeconfig --name test1 > update_kubeconfig_output.txt 2>&1
-        cat update_kubeconfig_output.txt
+        aws eks update-kubeconfig --name test1
         sed -i "s|TAG|${{ env.TAG }}|g" deployment.yml
         cat deployment.yml
 

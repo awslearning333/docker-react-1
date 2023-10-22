@@ -19,10 +19,10 @@ jobs:
       with:
         aws-access-key-id: AKIA5TOIR5JB6IZATMG5
         aws-secret-access-key: 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
-        aws-region: us-east-1
+        aws-region: us-east-2
 
     - name: Login to Amazon ECR
-      run: aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 935112862275.dkr.ecr.us-east-1.amazonaws.com
+      run: aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 935112862275.dkr.ecr.us-east-2.amazonaws.com
 
     - name: Build and Push
       run: |
@@ -30,19 +30,13 @@ jobs:
         TAG=$(date +'%Y%m%d_%H%M%S')
         echo Building the Docker image with tag $TAG...
         docker build -t reactjs:$TAG .
-        docker tag reactjs:$TAG 935112862275.dkr.ecr.us-east-1.amazonaws.com/testing:$TAG
-        docker push 935112862275.dkr.ecr.us-east-1.amazonaws.com/testing:$TAG
+        docker tag reactjs:$TAG 935112862275.dkr.ecr.us-east-2.amazonaws.com/testing:$TAG
+        docker push 935112862275.dkr.ecr.us-east-2.amazonaws.com/testing:$TAG
 
     - name: Update kube config
-      run: aws eks update-kubeconfig --name test
-        input="935112862275.dkr.ecr.us-east-1.amazonaws.com/testing:$TAG"
-        Image=$(echo "$input" | grep -oE ':[^:]+$' | sed 's/://')
-        sed -i 's/TAG/$Image/g' deployment.yml
-        echo "Image is:$Image"
-
+      run: aws eks update-kubeconfig --name test1
     - name: Deploy to EKS
       run: |
         
         kubectl apply -f deployment.yml
         kubectl apply -f service.yml
-

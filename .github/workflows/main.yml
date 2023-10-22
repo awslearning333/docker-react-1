@@ -34,9 +34,10 @@ jobs:
         docker push 935112862275.dkr.ecr.us-east-2.amazonaws.com/testing:$TAG
 
     - name: Update kube config
-      run: aws eks update-kubeconfig --name test1
+      run: |
+        aws eks update-kubeconfig --name test1
+        sed -i "s|935112862275.dkr.ecr.us-east-1.amazonaws.com/testing:TAG|935112862275.dkr.ecr.us-east-1.amazonaws.com/testing:$TAG|g" deployment.yml
     - name: Deploy to EKS
       run: |
-        
         kubectl apply -f deployment.yml
         kubectl apply -f service.yml

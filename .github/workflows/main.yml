@@ -40,7 +40,9 @@ jobs:
     steps:
     - name: Update kube config
       run: |
+        set -x  # Enable debugging
         aws eks update-kubeconfig --name test1
+        set +x  # disable debugging
         sed -i "s|TAG|${{ env.TAG }}|g" deployment.yml
         cat deployment.yml
 

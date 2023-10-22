@@ -32,13 +32,12 @@ jobs:
         docker build -t reactjs:$TAG .
         docker tag reactjs:$TAG 935112862275.dkr.ecr.us-east-2.amazonaws.com/testing:$TAG
         docker push 935112862275.dkr.ecr.us-east-2.amazonaws.com/testing:$TAG
-        Image=935112862275.dkr.ecr.us-east-2.amazonaws.com/testing:$TAG
-        echo "image with tag: $Image"
+        echo "image with tag: $TAG" >> $GITHUB_ENV
 
     - name: Update kube config
       run: |
         aws eks update-kubeconfig --name test1
-        sed -i "s|TAG|$Image|g" deployment.yml
+        sed -i "s|TAG|${{ env.TAG }}|g" deployment.yml
         echo "$TAG"
         cat deployment.yml
     - name: Deploy to EKS

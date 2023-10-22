@@ -15,7 +15,7 @@ spec:
         app: reactjs
     spec:
       containers:
-        - name: devopshint
+        - name: test
           image: 935112862275.dkr.ecr.us-east-2.amazonaws.com/testing:TAG
           imagePullPolicy: Always
           ports:
